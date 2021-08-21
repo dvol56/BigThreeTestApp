@@ -18,12 +18,12 @@ public class CitiesRecyclerAdapter extends RecyclerView.Adapter<CitiesRecyclerAd
 
     private final LayoutInflater inflater;
     private final ArrayList<CityModel> cities;
-    private final ArrayList<CityModel> fullList;
+    private final ArrayList<CityModel> fullCitiesList;
 
     public CitiesRecyclerAdapter(Context context, ArrayList<CityModel> cities) {
         this.cities = cities;
         this.inflater = LayoutInflater.from(context);
-        fullList = cities;
+        fullCitiesList = new ArrayList<>(cities);
     }
 
     @NonNull
@@ -36,7 +36,7 @@ public class CitiesRecyclerAdapter extends RecyclerView.Adapter<CitiesRecyclerAd
     @Override
     public void onBindViewHolder(@NonNull CitiesViewHolder holder, int position) {
         CityModel city = cities.get(position);
-        holder.title.setText(city.country + city.name);
+        holder.title.setText(city.country + ", " + city.name);
         holder.subTitle.setText(city.coord.lat.toString() + city.coord.lon.toString());
     }
 
@@ -55,10 +55,10 @@ public class CitiesRecyclerAdapter extends RecyclerView.Adapter<CitiesRecyclerAd
         protected FilterResults performFiltering(CharSequence constraint) {
             ArrayList<CityModel> filteredCitiesList = new ArrayList<>();
             if (constraint.length() == 0){
-                filteredCitiesList = new ArrayList<>(fullList);
+                filteredCitiesList.addAll((ArrayList<CityModel>) fullCitiesList);
             }else {
                 String filterPattern = constraint.toString().toLowerCase(Locale.ROOT).trim();
-                for(CityModel cm : cities){
+                for(CityModel cm : fullCitiesList){
                     if (cm.name.toLowerCase(Locale.ROOT).contains(filterPattern)){
                         filteredCitiesList.add(cm);
                     }

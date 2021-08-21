@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.bigthreetestapp.view.MainFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     final MainFragment mainFragment = new MainFragment();
